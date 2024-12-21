@@ -1,10 +1,11 @@
 const kv = await Deno.openKv();
 
 // Run a task every 1 minute.
-Deno.cron("Increment a counter", "* * * * *", async () => {
-  console.log("cron job is running.");
-  await kv.atomic().sum(["visitors"], 10n).commit();
-});
+// ※Deno deployでも有効なので、動きっぱなしにならないよう注意
+// Deno.cron("Increment a counter", "* * * * *", async () => {
+//   console.log("cron job is running.");
+//   await kv.atomic().sum(["visitors"], 10n).commit();
+// });
 
 Deno.serve(async (_req) => {
   await kv.atomic().sum(["visitors"], 1n).commit();
